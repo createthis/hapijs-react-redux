@@ -1,0 +1,79 @@
+{
+  "name": "hapijs-react-redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon --config nodemon.json ./server.js",
+    "lint": "eslint --ext js --ext jsx components || exit 0",
+    "test": "NODE_ENV=test node_modules/.bin/mocha --full-trace --compilers js:babel-core/register -w",
+    "test-vsts": "bash -c \"NODE_ENV=test node_modules/.bin/mocha --full-trace --compilers js:babel-core/register\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/createthis/hapijs-react-redux.git"
+  },
+  "author": "Jesse CreateThis <jesse@createthis.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/createthis/hapijs-react-redux/issues"
+  },
+  "homepage": "https://github.com/createthis/hapijs-react-redux#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.16.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.26.0",
+    "boom": "^5.2.0",
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.3.0",
+    "css-loader": "^0.28.7",
+    "csv": "^1.1.0",
+    "csv-parse": "^1.1.7",
+    "eslint": "^4.7.2",
+    "eslint-plugin-react": "^7.3.0",
+    "handlebars": "^4.0.5",
+    "hapi": "^16.6.0",
+    "hapi-webpack-plugin": "^2.0.0",
+    "hoek": "^4.1.0",
+    "html-webpack-plugin": "^2.22.0",
+    "inert": "^4.0.2",
+    "joi": "^11.0.3",
+    "jquery": "^3.1.1",
+    "minimatch": "^3.0.2",
+    "moment": "^2.15.1",
+    "react": "^15.3.2",
+    "react-bootstrap": "^0.31.3",
+    "react-chartjs-2": "^2.6.2",
+    "react-dom": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-redux": "^5.0.6",
+    "react-select": "^1.0.0-rc.2",
+    "redux": "^3.6.0",
+    "sequelize": "^4.10.0",
+    "sequelize-cli": "^3.0.0-3",
+    "sqlite3": "^3.1.6",
+    "style-loader": "^0.18.2",
+    "vision": "^4.1.0",
+    "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "factory-girl": "^4.0.0-beta.7",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "redux-devtools": "^3.3.1",
+    "sequelize-auto": "^0.4.16",
+    "should": "^13.1.0",
+    "webpack-dev-middleware": "^1.12.0"
+  },
+  "engines": {
+    "node": ">=6.8.0"
+  }
+}

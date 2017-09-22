@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "watch": [
+    "views",
+    "routes",
+    "controllers",
+    "models",
+    "services"
+  ],
+  "ext": "js json html"
+}
