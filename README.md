@@ -21,10 +21,10 @@ npm start
 Then visit <http://localhost:3000>
 
 # Structure
-/client contains react/redux client
-/test/client contains react/redux tests
-/test/models contain sequelize model unit tests
-/test/services contain service unit tests
+* /client contains react/redux client
+* /test/client contains react/redux tests
+* /test/models contain sequelize model unit tests
+* /test/services contain service unit tests
 
 # Development
 
