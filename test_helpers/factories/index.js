@@ -1,10 +1,9 @@
-'use strict';
-module.exports = function(factory, Models) {
-  var normalizedPath = require("path").join(__dirname, ".");
+export default function (factory, Models) {
+  let normalizedPath = require('path').join(__dirname, '.');
 
-  require("fs").readdirSync(normalizedPath).forEach(function(file) {
-    if (file !== "index.js") {
-      require('./'+file)(factory, Models);
+  require('fs').readdirSync(normalizedPath).forEach(function (file) {
+    if (file !== 'index.js' && !file.endsWith('.swp')) {
+      require('./' + file)(factory, Models);
     }
   });
 };
