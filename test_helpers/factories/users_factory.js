@@ -1,5 +1,4 @@
-'use strict';
-module.exports = function (factory, Models) {
+export default function (factory, Models) {
   factory.define('users', Models.users, {
     id: factory.sequence('users.id', (n) => `${n}`),
     first_name: factory.sequence('users.first_name', (n) => `First${n}`),
