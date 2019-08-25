@@ -1,88 +1,143 @@
-'use strict';
+import Boom from "boom";
+import SystemService from "~/services/system"
+const NODE_ENV = SystemService.get_node_env();
+if (NODE_ENV !== 'test') {
+  require('dotenv').config();
+}
+import '@babel/register';
+import '@babel/polyfill';
 
 const Hapi = require('hapi');
 const Hoek = require('hoek');
-const Path = require('path');
 const Inert = require('inert');
 const Vision = require('vision');
-const Models = require('./models');
+const Models = require('~/models');
+const AuthBearer = require('hapi-auth-bearer-token');
+const AuthCookie = require('hapi-auth-cookie');
+const AuthBasic = require('hapi-auth-basic');
 const WebpackPlugin = require('hapi-webpack-plugin');
-
-Models.sequelize.sync();
-
 // Create a server with a host and port
-const server = new Hapi.Server({ debug: { request: ['error'] } });
-server.connection({
-  host: 'localhost',
-  port: process.env.port ? process.env.port : 8000
+const server = new Hapi.Server({
+  host: process.env.host ? process.env.host : 'localhost',
+  port: SystemService.get_port(),
+  router: { stripTrailingSlash: true },
+  debug: { request: ['info'] },
 });
 
-server.register(Inert, () => {});
-server.route({
-  method: 'GET',
-  path: '/node_modules/{param*}',
-  handler: {
-    directory: {
-      path: './node_modules',
-      redirectToSlash: true,
-      index: true
-    }
-  }
-});
+const register_strategies = async () => {
+  const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
 
-server.register({
-  register: WebpackPlugin,
-  options: './webpack.config.js'
-});
+  server.app.cache = cache;
+}
 
-// Add routes
-var plugins = [
-  Vision,
-  {
-    register: require('./routes/home.js'),
+const register_routes = async (err) => {
+  await server.register(Inert);
+  server.route({
+    method: 'GET',
+    path: '/node_modules/{param*}',
     options: {
-      database: Models
+      handler: {
+        directory: {
+          path: './node_modules',
+          redirectToSlash: true,
+          index: true
+        }
+      },
     }
+  });
+
+  if (!module.parent) {
+    // do not use webpack inside mocha / npm test
+    await server.register({
+      plugin: WebpackPlugin,
+      options: './webpack.config.js'
+    });
+    await server.register({
+      plugin: require('good'),
+      options: {
+        includes: {
+          request: ['headers','payload'],
+          response: ['payload']
+        },
+        reporters: {
+          console: [
+            {
+              module: 'good-squeeze',
+              name: 'Squeeze',
+              args: [{ error: '*', log: '*', request: '*', response: '*' }]
+            },
+            {
+              module: 'good-console',
+              args: [{color: (NODE_ENV === 'development')}],
+            },
+            'stdout'
+          ]
+        }
+      }
+    });
   }
-];
 
-server.register(plugins, (err) => {
+  // Add routes
+  let routes = [
+    Vision,
+    {
+      plugin: require('./routes/root.js'),
+      options: {
+        database: Models
+      }
+    },
+  ];
 
-  Hoek.assert(!err, err);
+  await server.register(routes);
 
   server.views({
     engines: {
-      html: require('handlebars')
+      hbs: require('handlebars')
     },
     relativeTo: __dirname,
     path: './views',
   });
 
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: (request, reply) => {
+  if (!module.parent) {
+    // Start the server, but only if not running inside mocha / npm test
+    server.start(async (err) => {
+      if (err) {
+        throw err;
+      }
+      console.log('Server running at:', server.info.uri);
+    });
+  }
+}
 
-      reply.view('home', { title: 'Home Page' });
-    }
-  });
+const initialize = async () => {
+  await server.register([AuthBearer, AuthCookie, AuthBasic]);
+  await register_strategies();
+  await register_routes();
 
-  server.route({
-    method: 'GET',
-    path:'/hello', 
-    handler: function (request, reply) {
+  console.log('server initialized');
+}
 
-      return reply('hello world');
-    }
-  });
+const main = async ()  => {
+  await initialize();
+}
 
-  // Start the server
-  server.start((err) => {
+if (!module.parent) {
+  // if we're not running inside mocha / npm test, auto initialize the server.
+  // inside mocha, we need to do this via a beforeEach in order to assure synchrony.
+  main();
+}
 
-    if (err) {
-      throw err;
-    }
-    console.log('Server running at:', server.info.uri);
-  });
+export default {
+  server,
+  initialize,
+}
+process.on('unhandledRejection', error => {
+  // Will print "unhandledRejection err is not defined"
+  console.log('unhandledRejection', error.message);
+  console.log(error.stack);
 });
-
+/*process.on('warning', error => {
+  // Will print "unhandledRejection err is not defined"
+  console.log('unhandledRejection', error.message);
+  console.log(error.stack);
+});*/

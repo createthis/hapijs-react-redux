@@ -1,7 +1,7 @@
-import helper from '../../test_helpers'
-
-var factory = helper.factory;
-var Models = helper.Models;
+import {
+  factory,
+  Models,
+} from '~/test_helpers'
 
 describe('users', () => {
   describe('#numberByAge()', () => {
