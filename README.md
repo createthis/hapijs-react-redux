@@ -50,8 +50,10 @@ If you are not familiar with Redux, I strongly recommend watching these short, f
 
 # Production
 
-`npm run build`
-`npm run serve`
+```bash
+npm run build
+npm run serve
+```
 
 # Development
 
@@ -94,12 +96,7 @@ Next, run the seeds:
 npm run reloadseed # WARNING: aggressively wipes dev db and reload seeds
 ```
 
-Here's an example of how to create the companies model from the companies table on takingthetest:
+Here's an example of how to create a model from the sometable table on somedb:
 ```bash
-./node_modules/.bin/sequelize-auto -h localhost -p 3306 -u arch_user -x arch_pass_word -d taking_the_test -e mysql -o ./models -t companies
-```
-
-And here's what I used to create the initial models for the leads page:
-```bash
-./node_modules/.bin/sequelize-auto -h localhost -p 3306 -u arch_user -x arch_pass_word -d taking_the_test -e mysql -o ./models -t companies,industries,iso_main,deal_application,funded_deal,deal_application_verification,deal_punchlist
+./node_modules/.bin/sequelize-auto -h localhost -p 3306 -u someuser -x somepass -d somedb -e mysql -o ./models -t sometable
 ```
