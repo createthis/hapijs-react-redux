@@ -17,13 +17,6 @@ class SystemService {
     return '8000';
   }
 
-  static get_iron_cookie_password(node_env) {
-    if (!node_env) node_env = process.env.NODE_ENV;
-    if (node_env === 'test' || node_env === 'development') return 'password_for_iron_aaaaaaaaaaaaaa';
-    if (!process.env.IRON_COOKIE_PASSWORD) throw new Error('IRON_COOKIE_PASSWORD not set');
-    return process.env.IRON_COOKIE_PASSWORD;
-  }
-
   static get_node_env() {
     return process.env.NODE_ENV || 'development';
   }
