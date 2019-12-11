@@ -3,6 +3,8 @@
  */
 
 const path = require('path');
+import SystemService from "~/services/system"
+const NODE_ENV = SystemService.get_node_env();
 
 /**
  * Export webpack configuration
@@ -10,23 +12,27 @@ const path = require('path');
 
 function build_by_entry_and_target(entry, target) {
   let output = {
+    mode: NODE_ENV === 'production' ? 'production' : 'development',
     entry: ['@babel/polyfill', entry],
     output: {
       path: path.join(__dirname, 'dist'),
       filename: target,
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
         },
         {
           test: /node_modules\/react-bootstrap\/dist\/react-bootstrap.min.js$/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
         },
-        { test: /\.css$/, loader: "style-loader!css-loader" },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
       ]
     },
   }

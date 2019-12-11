@@ -7,14 +7,14 @@ if (NODE_ENV !== 'test') {
 import '@babel/register';
 import '@babel/polyfill';
 
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 const Hoek = require('hoek');
 const Inert = require('inert');
 const Vision = require('vision');
 const Models = require('~/models');
 const AuthBearer = require('hapi-auth-bearer-token');
-const AuthCookie = require('hapi-auth-cookie');
-const AuthBasic = require('hapi-auth-basic');
+const AuthCookie = require('@hapi/cookie');
+const AuthBasic = require('@hapi/basic');
 const WebpackPlugin = require('hapi-webpack-plugin');
 // Create a server with a host and port
 const server = new Hapi.Server({
