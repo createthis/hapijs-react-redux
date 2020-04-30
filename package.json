@@ -94,7 +94,7 @@
     "inert": "^5.1.2",
     "istanbul": "^0.4.5",
     "joi": "^12.0.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "mime-types": "^2.1.22",
     "moment": "^2.22.1",
     "moment-range": "^4.0.2",
