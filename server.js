@@ -9,7 +9,7 @@ import '@babel/polyfill';
 
 const Hapi = require('@hapi/hapi');
 const Hoek = require('hoek');
-const Inert = require('inert');
+const Inert = require('@hapi/inert');
 const Vision = require('vision');
 const Models = require('~/models');
 const AuthBearer = require('hapi-auth-bearer-token');
