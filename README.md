@@ -1,12 +1,14 @@
 # Hapi.JS React Redux demo project
 Hapi.js + Sequelize backend with React + Redux front end
 
-This project uses node 10.14.1.
-
 # Getting Started
 
 ```bash
-npm install
+# The next 3 lines are only necessary if you do not have a package-lock.json file for some reason
+npm shrinkwrap
+mv npm-shrinkwrap.json package-lock.json
+npm install # first time - gives security warnings
+npm install # second time, npm-force-resolutions clears warnings based on resolutions section from package.json
 npm run reloadseed
 npm test
 npm run dev
