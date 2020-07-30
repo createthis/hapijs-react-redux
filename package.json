@@ -176,6 +176,7 @@
     "minimist": "^1.2.5",
     "npm": "~6.14.6",
     "terser-webpack-plugin": "1.4.3",
-    "yargs-parser": ">=13.1.2"
+    "yargs-parser": ">=13.1.2",
+    "dot-prop": ">=5.1.1"
   }
 }
