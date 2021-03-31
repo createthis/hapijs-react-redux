@@ -70,7 +70,7 @@
     "@hapi/hoek": "^8.5.1",
     "@hapi/inert": "^5.2.2",
     "@react-bootstrap/pagination": "^1.0.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-root-import": "^5.1.0",
@@ -180,6 +180,9 @@
     "dot-prop": ">=5.1.1",
     "node-fetch": "^2.6.1",
     "npm-user-validate": ">=1.0.1",
-    "ini": ">=1.3.6"
+    "ini": ">=1.3.6",
+    "highlight.js": ">=10.4.1",
+    "elliptic": ">=6.5.4",
+    "ssri": ">=8.0.1"
   }
 }
