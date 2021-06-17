@@ -92,6 +92,7 @@ beforeEach(async function () {
 afterEach(() => {
   set_skip_server_init(false);
   set_skip_db_sync(false);
+  mock.reset();
 });
 
 export default {

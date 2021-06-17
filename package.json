@@ -10,9 +10,9 @@
     "devnomon": "NODE_ENV=development node ./node_modules/.bin/babel-node server",
     "serve": "node dist/server.js",
     "lint": "eslint --ext js --ext jsx components || exit 0",
-    "test": "NODE_ENV=test node_modules/.bin/mocha --exit --timeout 40000 --full-trace --require @babel/register",
+    "test": "NODE_ENV=test node_modules/.bin/mocha",
     "reloadseed": "rm -f db.development.sqlite && NODE_ENV=development ./node_modules/.bin/sequelize db:migrate && NODE_ENV=development ./node_modules/.bin/babel-node ./node_modules/.bin/sequelize db:seed:all --inspect",
-    "coverage": "NODE_ENV=test node_modules/.bin/nyc --reporter=text --reporter=html node_modules/.bin/mocha --full-trace --exit --timeout 40000 --require @babel/register",
+    "coverage": "NODE_ENV=test node_modules/.bin/nyc --reporter=text --reporter=html node_modules/.bin/mocha",
     "build": "babel . --ignore dist,client,test,migrations,node_modules,webpack.config.js,seeders -d dist && ./bin/link_views.sh"
   },
   "nyc": {
@@ -78,6 +78,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "boom": "^7.2.2",
     "bootstrap": "^3.3.7",
+    "cheerio": "^1.0.0-rc.10",
     "create-react-class": "^15.7.0",
     "css-loader": "^5.2.4",
     "csv-parse": "^4.4.7",
@@ -92,7 +93,7 @@
     "hapi-auth-bearer-token": "^6.1.4",
     "hapi-webpack-plugin": "github:createthis/hapi-webpack-plugin#webpack_4",
     "history": "^4.7.2",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^4.5.2",
     "istanbul": "^0.4.5",
     "joi": "^12.0.0",
     "jquery": "^3.5.0",
@@ -149,7 +150,7 @@
     "factory-girl": "^5.0.2",
     "jsdom": "^16.6.0",
     "jsdom-global": "^3.0.2",
-    "mocha": "^5.2.0",
+    "mocha": "^9.0.0",
     "mock-sftp-server": "^0.1.0",
     "nodemailer-mock-transport": "^1.3.0",
     "nodemon": "^1.18.7",
@@ -190,6 +191,7 @@
     "property-expr": ">=2.0.3",
     "mixme": ">=0.5.1",
     "hosted-git-info": ">=2.8.9",
-    "ws": ">=7.4.6"
+    "ws": ">=7.4.6",
+    "glob-parent": ">=5.1.2"
   }
 }

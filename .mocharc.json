@@ -1,0 +1,11 @@
+{
+  "require": [
+    "should",
+    "should-sinon",
+    "@babel/register"
+  ],
+  "recursive": true,
+  "full-trace": true,
+  "timeout": 40000,
+  "exit": true
+}
