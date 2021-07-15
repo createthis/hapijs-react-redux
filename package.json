@@ -122,7 +122,7 @@
     "sequelize": "^5.21.11",
     "sequelize-cli": "^5.5.1",
     "sequelize-paper-trail": "git+https://github.com/libertas-funding/sequelize-paper-trail.git#dist",
-    "sinon": "^5.0.7",
+    "sinon": "^11.1.1",
     "sqlite3": "^5.0.0",
     "style-loader": "^0.21.0",
     "vision": "^5.4.3",
