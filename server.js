@@ -8,9 +8,9 @@ import '@babel/register';
 import '@babel/polyfill';
 
 const Hapi = require('@hapi/hapi');
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 const Inert = require('@hapi/inert');
-const Vision = require('vision');
+const Vision = require('@hapi/vision');
 const Models = require('~/models');
 const AuthBearer = require('hapi-auth-bearer-token');
 const AuthCookie = require('@hapi/cookie');
@@ -23,6 +23,7 @@ const server = new Hapi.Server({
   router: { stripTrailingSlash: true },
   debug: { request: ['info'] },
 });
+server.validator(require('joi'));
 
 const register_strategies = async () => {
   const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 });
@@ -53,7 +54,7 @@ const register_routes = async (err) => {
       options: './webpack.config.js'
     });
     await server.register({
-      plugin: require('good'),
+      plugin: require('@hapi/good'),
       options: {
         includes: {
           request: ['headers','payload'],
@@ -62,12 +63,12 @@ const register_routes = async (err) => {
         reporters: {
           console: [
             {
-              module: 'good-squeeze',
+              module: '@hapi/good-squeeze',
               name: 'Squeeze',
               args: [{ error: '*', log: '*', request: '*', response: '*' }]
             },
             {
-              module: 'good-console',
+              module: '@hapi/good-console',
               args: [{color: (NODE_ENV === 'development')}],
             },
             'stdout'
