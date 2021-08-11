@@ -126,13 +126,13 @@
     "sequelize-cli": "^5.5.1",
     "sequelize-paper-trail": "git+https://github.com/libertas-funding/sequelize-paper-trail.git#dist",
     "sinon": "^11.1.1",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "git@github.com:mapbox/node-sqlite3.git#593c9d",
     "style-loader": "^0.21.0",
     "webpack": "^4.44.1",
     "yup": "^0.32.9"
   },
   "optionalDependencies": {
-    "fsevents": "^1.2.12"
+    "fsevents": "^2.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -177,7 +177,7 @@
     "lodash": "^4.17.15",
     "mem": "^4.0.0",
     "minimist": "^1.2.5",
-    "npm": "~6.14.6",
+    "npm": "~6.14.14",
     "terser-webpack-plugin": "1.4.5",
     "yargs-parser": ">=13.1.2",
     "dot-prop": ">=5.1.1",
@@ -194,6 +194,7 @@
     "mixme": ">=0.5.1",
     "hosted-git-info": ">=2.8.9",
     "ws": ">=7.4.6",
-    "glob-parent": ">=5.1.2"
+    "glob-parent": ">=5.1.2",
+    "tar": ">=6.1.7"
   }
 }
