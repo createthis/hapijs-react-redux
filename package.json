@@ -126,7 +126,7 @@
     "sequelize-cli": "^5.5.1",
     "sequelize-paper-trail": "git+https://github.com/libertas-funding/sequelize-paper-trail.git#dist",
     "sinon": "^11.1.1",
-    "sqlite3": "git@github.com:mapbox/node-sqlite3.git#593c9d",
+    "sqlite3": "git+https://github.com/mapbox/node-sqlite3.git#593c9d",
     "style-loader": "^0.21.0",
     "webpack": "^4.44.1",
     "yup": "^0.32.9"
