@@ -168,8 +168,8 @@
     "webpack-dev-middleware": "^3.6.0"
   },
   "engines": {
-    "node": ">=14.16.1",
-    "npm": "~6.14.12"
+    "node": ">=14.17.5",
+    "npm": "~6.14.14"
   },
   "resolutions": {
     "acorn-globals": "^6.0.0",
