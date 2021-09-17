@@ -76,7 +76,7 @@
     "@hapi/vision": "^6.0.0",
     "@hapi/iron": "^6.0.0",
     "@react-bootstrap/pagination": "^1.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-root-import": "^5.1.0",
@@ -196,6 +196,8 @@
     "ws": ">=7.4.6",
     "glob-parent": ">=5.1.2",
     "tar": ">=6.1.7",
-    "path-parse": ">=1.0.7"
+    "path-parse": ">=1.0.7",
+    "webpack-hot-middleware": ">=2.25.1",
+    "set-value": ">=4.0.1"
   }
 }
