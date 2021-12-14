@@ -6,9 +6,9 @@ Hapi.js + Sequelize backend with React + Redux front end
 ```bash
 brew update
 brew install nvm // if not already installed
-nvm install v14.17.5
-nvm use v14.17.5
-nvm alias default v14.17.5
+nvm install v14.18.1
+nvm use v14.18.1
+nvm alias default v14.18.1
 # The next 3 lines are only necessary if you do not have a package-lock.json file for some reason
 npm shrinkwrap
 mv npm-shrinkwrap.json package-lock.json
