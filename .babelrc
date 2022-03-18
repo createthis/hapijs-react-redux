@@ -1,11 +1,24 @@
 {
-  "presets": ["@babel/env", "@babel/react"],
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "3.21.1",
+        "targets": {
+          "node": "current"
+        },
+      },
+    ],
+    "@babel/react"
+  ],
   "plugins": [
     "add-module-exports",
     "@babel/plugin-proposal-object-rest-spread",
     "babel-plugin-root-import",
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-private-methods"
+    "@babel/plugin-proposal-private-methods",
+    "@babel/plugin-transform-runtime"
   ],
   "env": {
     "test": {
@@ -13,7 +26,8 @@
         "css-modules-transform",
         ["istanbul", {
           "extension": [
-            ".jsx"
+            ".jsx",
+            ".js"
           ],
           "exclude": [
             "**/server.js",
