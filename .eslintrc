@@ -1,0 +1,77 @@
+{
+  "parser": "@babel/eslint-parser",
+  "plugins": [
+    "@babel",
+    "mocha"
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": "babel-plugin-root-import"
+  },
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:mocha/recommended"
+  ],
+  "globals": {
+    "should": true,
+    "document": true
+  },
+  "rules": {
+    "camelcase": "off",
+    "semi": "off",
+    "no-unused-vars": ["error", {
+      "args": "none"
+    }],
+    "import/no-unresolved": [
+      2,
+      {
+        "caseSensitive": false
+      }
+    ],
+    "mocha/no-mocha-arrows": "off",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
+    "newline-per-chained-call": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "LabeledStatement",
+        "message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
+      },
+      {
+        "selector": "WithStatement",
+        "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
+      }
+    ],
+    "no-await-in-loop": "off",
+    "import/named": "off",
+    "no-plusplus": "off",
+    "func-names": "off",
+    "import/no-named-as-default-member": "off",
+    "class-methods-use-this": [
+      "error", {
+        "enforceForClassFields": false
+      }
+    ],
+    "guard-for-in": "off",
+    "radix": "off",
+    "default-case": "off",
+    "space-infix-ops": "off",
+    "global-require": "off",
+    "mocha/no-setup-in-describe": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "no-continue": "off",
+    "no-prototype-builtins": "off",
+    "react/prefer-stateless-function": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": "off"
+  }
+}

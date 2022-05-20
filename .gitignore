@@ -4,3 +4,4 @@ db.development.sqlite
 db.test.sqlite
 db.production.sqlite
 **/*.swp
+dist

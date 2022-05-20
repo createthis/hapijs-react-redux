@@ -1,13 +1,4 @@
-import Boom from 'boom';
-
-class RootController {
-  constructor(database) {
-  }
-
+export default class RootController {
   // [GET] /
-  index = async (request, h) => {
-    return h.view('root');
-  }
+  index = async (request, h) => h.view('root')
 }
-
-export default RootController;

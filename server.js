@@ -1,21 +1,22 @@
-import Boom from "boom";
-import SystemService from "~/services/system"
+// eslint-disable-next-line import/no-import-module-exports
+import '@babel/register';
+// eslint-disable-next-line import/no-import-module-exports
+import SystemService from '~/services/system'
+
 const NODE_ENV = SystemService.get_node_env();
 if (NODE_ENV !== 'test') {
   require('dotenv').config();
 }
-import '@babel/register';
-import '@babel/polyfill';
 
+const ENABLE_HMR = (NODE_ENV === 'development') && !process.env.DISABLE_HMR;
 const Hapi = require('@hapi/hapi');
-const Hoek = require('@hapi/hoek');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const Models = require('~/models');
 const AuthBearer = require('hapi-auth-bearer-token');
 const AuthCookie = require('@hapi/cookie');
 const AuthBasic = require('@hapi/basic');
-const WebpackPlugin = require('hapi-webpack-plugin');
+const WebpackPlugin = require('hapi-webpack-plugin-2').default;
 // Create a server with a host and port
 const server = new Hapi.Server({
   host: process.env.host ? process.env.host : 'localhost',
@@ -33,6 +34,20 @@ const register_strategies = async () => {
 
 const register_routes = async (err) => {
   await server.register(Inert);
+  const public_path = ENABLE_HMR ? './public' : './dist/public'; // EV-2105
+  server.route({
+    method: 'GET',
+    path: '/public/{param*}',
+    options: {
+      handler: {
+        directory: {
+          path: public_path,
+          redirectToSlash: true,
+          index: true,
+        },
+      },
+    },
+  });
   server.route({
     method: 'GET',
     path: '/node_modules/{param*}',
@@ -41,51 +56,58 @@ const register_routes = async (err) => {
         directory: {
           path: './node_modules',
           redirectToSlash: true,
-          index: true
-        }
+          index: true,
+        },
       },
-    }
+    },
   });
 
   if (!module.parent) {
     // do not use webpack inside mocha / npm test
-    await server.register({
-      plugin: WebpackPlugin,
-      options: './webpack.config.js'
-    });
+    if (ENABLE_HMR) {
+      // Only allow Webpack HMR in development environments. EV-2105
+      await server.register({
+        plugin: WebpackPlugin,
+        options: {
+          configPath: './webpack.config.js',
+        },
+      });
+    }
     await server.register({
       plugin: require('@hapi/good'),
       options: {
         includes: {
-          request: ['headers','payload'],
-          response: ['payload']
+          request: ['headers', 'payload'],
+          response: ['payload'],
         },
         reporters: {
           console: [
             {
               module: '@hapi/good-squeeze',
               name: 'Squeeze',
-              args: [{ error: '*', log: '*', request: '*', response: '*' }]
+              args: [{
+                error: '*', log: '*', request: '*', response: '*',
+              }],
             },
             {
               module: '@hapi/good-console',
-              args: [{color: (NODE_ENV === 'development')}],
+              args: [{ color: (NODE_ENV === 'development') }],
             },
-            'stdout'
-          ]
-        }
-      }
+            'stdout',
+          ],
+        },
+      },
     });
   }
 
   // Add routes
-  let routes = [
+  const routes = [
     Vision,
     {
-      plugin: require('./routes/root.js'),
+      plugin: require('~/routes/root'),
       options: {
-        database: Models
-      }
+        database: Models,
+      },
     },
   ];
 
@@ -93,7 +115,7 @@ const register_routes = async (err) => {
 
   server.views({
     engines: {
-      hbs: require('handlebars')
+      hbs: require('handlebars'),
     },
     relativeTo: __dirname,
     path: './views',
@@ -101,6 +123,7 @@ const register_routes = async (err) => {
 
   if (!module.parent) {
     // Start the server, but only if not running inside mocha / npm test
+    // eslint-disable-next-line no-shadow
     server.start(async (err) => {
       if (err) {
         throw err;
@@ -118,7 +141,7 @@ const initialize = async () => {
   console.log('server initialized');
 }
 
-const main = async ()  => {
+const main = async () => {
   await initialize();
 }
 
@@ -132,13 +155,13 @@ export default {
   server,
   initialize,
 }
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', (error) => {
   // Will print "unhandledRejection err is not defined"
   console.log('unhandledRejection', error.message);
   console.log(error.stack);
 });
-/*process.on('warning', error => {
+/* process.on('warning', error => {
   // Will print "unhandledRejection err is not defined"
   console.log('unhandledRejection', error.message);
   console.log(error.stack);
-});*/
+}); */
