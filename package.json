@@ -96,7 +96,7 @@
     "css-loader": "^5.2.4",
     "csv-parse": "^4.4.7",
     "dotenv": "^5.0.1",
-    "form-data": "^2.3.2",
+    "form-data": "^2.5.5",
     "formdata-polyfill": "^3.0.10",
     "get-port": "^4.1.0",
     "handlebars": "4.7.7",
